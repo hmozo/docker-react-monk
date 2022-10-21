@@ -1,0 +1,9 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t doctorkernel/docker-react-monk -f Dockerfile.dev .
+
+script:
+  - docker run doctorkernel/docker-react-monk npm run test -- --coverage
