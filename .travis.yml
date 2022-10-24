@@ -6,4 +6,14 @@ before_install:
   - docker build -t doctorkernel/docker-react-monk -f Dockerfile.dev .
 
 script:
-  - docker run doctorkernel/docker-react-monk npm run test -- --coverage
+  - docker run -e CI=true doctorkernel/docker-react-monk npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-west-1"
+  app: "docker-react-monk"
+  env: "Dockerreactmonk-env"
+  bucket-name: "elasticbeanstalk-eu-west-1-800343911624"
+  bucket_path: "docker-react-monk"
+  on:
+    branch: master
